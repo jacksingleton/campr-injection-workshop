@@ -3,9 +3,7 @@ package com.thoughtworks.securityinourdna;
 import org.junit.Test;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,11 +12,12 @@ import static org.junit.Assert.assertNull;
 
 public class UserRepoTest {
 
+    private final ConnectionFactory connectionFactory = new ConnectionFactory();
 
     @Test
     public void add_names_should_insert_names_into_the_database() throws Exception {
         // Given
-        Connection conn = createInMemoryDatabase();
+        Connection conn = connectionFactory.createInMemoryDatabase();
 
         Map<String, String> firstLastNames = new HashMap<String, String>() {{
             put("Alice", "Injector");
@@ -36,7 +35,7 @@ public class UserRepoTest {
     @Test
     public void find_last_name_should_return_null_when_first_name_does_not_exist() throws Exception {
         // Given
-        Connection conn = createInMemoryDatabase();
+        Connection conn = connectionFactory.createInMemoryDatabase();
 
         // When
         String lastName = new UserRepo(conn).findLastName("i do not exist");
@@ -48,7 +47,7 @@ public class UserRepoTest {
     @Test
     public void find_last_name_should_return_the_last_name_of_a_user_in_the_database() throws Exception {
         // Given
-        Connection conn = createInMemoryDatabase();
+        Connection conn = connectionFactory.createInMemoryDatabase();
         UserRepo userRepo = new UserRepo(conn);
 
         userRepo.addNames(new HashMap<String, String>() {{
@@ -62,20 +61,9 @@ public class UserRepoTest {
         assertEquals(lastName, "Injector");
     }
 
-    private Connection createInMemoryDatabase() throws SQLException {
-        try {
-            DriverManager.getConnection("jdbc:derby:memory:" + "injection" + ";drop=true");
-        } catch (Exception e) {
-            // Database doesn't exist in memory yet, no worries
-        }
-
-        Connection conn = DriverManager.getConnection("jdbc:derby:memory:" + "injection" + ";create=true");
-        conn.createStatement().execute("create table users (first_name varchar(80), last_name varchar(80))");
-        return conn;
-    }
-
     private int getUserCount(Connection conn) throws Exception {
-        final ResultSet resultSet = conn.createStatement().executeQuery("select count(*) as user_count from users");
+        final String userCountQuery = "select count(*) as user_count from users";
+        final ResultSet resultSet = conn.createStatement().executeQuery(userCountQuery);
 
         resultSet.next();
 

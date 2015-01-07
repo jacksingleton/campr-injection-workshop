@@ -1,7 +1,5 @@
 package com.thoughtworks.securityinourdna;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -9,7 +7,7 @@ public class Main {
 
     private static final UserRepo userRepo = initializeUserRepo();
 
-    public static void main(String[] args) throws Exception {
+    public static void main(final String[] args) throws Exception {
         System.out.print("Hi what is your first name? ");
 
         final String firstName = new Scanner(System.in).nextLine();
@@ -25,13 +23,15 @@ public class Main {
 
     private static UserRepo initializeUserRepo() {
         try {
-            final Connection conn = DriverManager.getConnection("jdbc:derby:memory:" + "injection" + ";create=true");
-            conn.createStatement().execute("create table users (first_name varchar(80), last_name varchar(80))");
-            UserRepo userRepo = new UserRepo(conn);
+            final ConnectionFactory connectionFactory = new ConnectionFactory();
+            final UserRepo userRepo = new UserRepo(connectionFactory.createInMemoryDatabase());
 
             userRepo.addNames(new HashMap<String, String>() {{
-                put("Alice", "Injector1");
-                put("Bob", "Injector2");
+                put("Alice", "Brown");
+                put("Bob", "Smith");
+                put("Eve", "Johnson");
+                put("Mallory", "Jones");
+                put("Dan", "Williams");
             }});
 
             return userRepo;
