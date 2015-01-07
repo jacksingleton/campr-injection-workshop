@@ -2,6 +2,7 @@ package com.thoughtworks.securityinourdna;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.Map;
 
 public class UserRepo {
@@ -21,7 +22,14 @@ public class UserRepo {
         }
     }
 
-    public String findLastName(final String name) {
-        throw new RuntimeException("not yet implemented");
+    public String findLastName(final String name) throws Exception {
+        final ResultSet resultSet = connection.createStatement().executeQuery("select * from users where first_name = '" + name + "'");
+
+        if (resultSet.next()) {
+            return resultSet.getString("last_name");
+        } else {
+            return null;
+        }
+
     }
 }
