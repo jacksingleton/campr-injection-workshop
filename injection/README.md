@@ -1,5 +1,9 @@
 # Injection Workshop
 
+## Package & Run
+* ```cd injection```
+* ```mvn clean package && java -jar target/injection-1.0-SNAPSHOT-jar-with-dependencies.jar```
+
 ## Interact over network
 * ```telnet $IP 8888```
 * ```echo 'Bob' | nc $IP 8888```
