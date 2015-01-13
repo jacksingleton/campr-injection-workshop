@@ -1,5 +1,9 @@
 # Injection Workshop
 
+## Interact over network
+* ```telnet $IP 8888```
+* ```echo 'Bob' | nc $IP 8888```
+
 ## Requirements
 * Java 1.6+
 * Maven
