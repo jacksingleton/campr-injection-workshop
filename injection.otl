@@ -22,7 +22,7 @@ injection
 		introduce cli java app that is vulnerable to sql injection
 			explain basic interface
 			show sql used to lookup name: select * from users where first_name = 'name'
-		optional: have everyone exploit the app
+		optional hands on: have everyone exploit the app
 			everyone will need to be on the same network
 			the network must allow computers to communicate to each other via tcp
 			start application on your machine with ncat
@@ -32,22 +32,25 @@ injection
 		demonstrate exploits on projector
 			run the app locally with: java -jar target/injection-1.0-SNAPSHOT-jar-with-dependencies.jar
 			print first last name in the database: ' or 1=1 --comment
-			enumerate all last names: for i in $(seq 0 10); do echo "' or 1=1 offset $i rows --comment" | java -jar injection.jar; done'"
+			enumerate all last names
+				for i in $(seq 0 10); do echo "' or 1=1 offset $i rows --comment" | java -jar $INJECTION_JAR; done'"
 		explain injection checklist
 			delegate sql substitution to the database
 			encoding untrusted data
 			validation (in as many layers as possible)
 			whitelisting when possible
-		optional: have each pair download and fix the code
+		hands on option: have each pair download and fix the code
 			clone source from: gitlab_sa@git.thoughtworks.net:jacksingleton/injection-workshop.git
 			cd injection
-		present fix
-		try (and hopefully fail) to exploit again
-			? have people 
+			mvn test
+			move around the room and help each pair implement the fix
+		quick option: fix the code on the projector
+			facilitator types the code
+			participents tell the faciltator what to type
+			try to get everyone involved
+			give hints along the way if the group is stumped
 		learn more
 			sqlmap: http://sqlmap.org/
 			sql injection prevention cheat sheet: https://www.owasp.org/index.php/SQL_Injection_Prevention_Cheat_Sheet
 			owasp page: https://www.owasp.org/index.php/Top_10_2013-A1-Injection
 		gather feedback
-		notes
-			split up into quick and hands on versions?
