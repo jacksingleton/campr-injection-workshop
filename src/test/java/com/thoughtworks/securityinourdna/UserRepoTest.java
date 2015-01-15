@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNull;
 
 public class UserRepoTest {
@@ -60,6 +61,24 @@ public class UserRepoTest {
         // Then
         assertEquals(lastName, "Injector");
     }
+
+    @Test
+    public void find_last_name_should_not_be_vulnerable_to_obvious_sql_injection() throws Exception {
+        // Given
+        Connection conn = connectionFactory.createInMemoryDatabase();
+        UserRepo userRepo = new UserRepo(conn);
+
+        userRepo.addNames(new HashMap<String, String>() {{
+            put("Alice", "Injector");
+        }});
+
+        // When
+        String lastName = userRepo.findLastName("' or 1=1 --comment");
+
+        // Then
+        assertNull(lastName);
+    }
+
 
     private int getUserCount(Connection conn) throws Exception {
         final String userCountQuery = "select count(*) as user_count from users";
