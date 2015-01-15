@@ -39,7 +39,8 @@ injection
 			validation (in as many layers as possible)
 			whitelisting when possible
 		optional: have each pair download and fix the code
-			download source from ________
+			clone source from: gitlab_sa@git.thoughtworks.net:jacksingleton/injection-workshop.git
+			cd injection
 		present fix
 		try (and hopefully fail) to exploit again
 			? have people 
