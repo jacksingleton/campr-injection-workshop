@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Injection Workshop</title>
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+                <style type="text/css">
+                  pre.bigcode { text-align: center; font-size: 1em }
+                  pre.medcode { text-align: center; font-size: 0.7em }
+                  #speaker-controls { font-size: 0.3em }
+                  .present ul li { margin-bottom: 0.5em }
+                </style>
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+
+                          <section>
+                            <h1>Injection</h1>
+                            <h3>OWASP #1</h3>
+                            <aside class="notes">
+                              <ul>
+                                <li>If you are doing hands on exercises, pair up participants</li>
+                                <li>Ask who has experience with Java and SQL</li>
+                                <li>Try to pair inexperienced with experienced</li>
+                              </ul>
+                            </aside>
+                          </section>
+
+                          <section>
+                            <h2>Injection?</h2>
+                            <ul>
+                              <li>What are injection vulnerabilities?</li>
+                              <li>What’s the worst that can happen?</li>
+                            </ul>
+                          </section>
+
+                          <section>
+                            <h2>Injection</h2>
+                            <ul>
+                              <li>"Injection flaws occur when an application sends untrusted data to an interpreter."</li>
+                              <li>SQL, LDAP, Xpath, or NoSQL queries, OS commands, XML parsers, SMTP Headers, program arguments</li>
+                            </ul>
+                          </section>
+
+                          <section>
+                            <h2>Shellshock</h2>
+                            <aside class="notes">
+                              Shellshock is a code injection vulnerability
+                            </aside>
+                          </section>
+
+                          <section>
+                            <img width="100%" src="jonny-tables.png">
+                            <pre style="text-align: center; font-size: 1em"><code>Robert'); DROP TABLE Students;--</code></pre>
+                          </section>
+
+                          <section>
+                            <pre class="bigcode"><code>$name = "Robert'); DROP TABLE Students;--"</code></pre>
+                            <pre class="bigcode"><code>SELECT * FROM Students WHERE name = '$name'</code></pre>
+                            <p>=></p>
+                            <pre class="medcode"><code>SELECT * FROM Students WHERE name = 'Robert'); DROP TABLE Students;--'</code></pre>
+                          </section>
+
+                          <section>
+                            <h2>Vulnerable App</h2>
+                            <pre class="bigcode"><code>telnet $IP 8888</code></pre>
+                            <aside class="notes">
+                              <em>optional</em>
+                              <ul>
+                                <li>everyone will need to be on the same network</li>
+                                <li>the network must allow computers to communicate to each other via tcp</li>
+                                <li>start application on your machine with ncat</li>
+                                <li>ncat -lktc 'java -jar target/injection-1.0-SNAPSHOT-jar-with-dependencies.jar' $IP 8888</li>
+                              </ul>
+                            </aside>
+                          </section>
+
+                          <section>
+                            <h2>demo</h2>
+                            <aside class="notes">
+                              <ul>
+                                <li>run the app locally with: java -jar target/injection-1.0-SNAPSHOT-jar-with-dependencies.jar</li>
+                                <li>print first last name in the database: ' or 1=1 --comment'</li>
+                                <li>enumerate all last names:</li>
+                                <li>for i in $(seq 0 10); do echo "' or 1=1 offset $i rows --comment" | java -jar $INJECTION_JAR; done'"</li>
+                              </ul>
+                            </aside>
+                          </section>
+
+                          <section>
+                            <h2>Secure Code Checklist</h2>
+                            <ul>
+                              <li>delegate sql substitution to the database</li>
+                              <li>encoding untrusted data</li>
+                              <li>validation (in as many layers as possible)</li>
+                              <li>whitelisting when possible</li>
+                            </ul>
+                          </section>
+
+                          <section>
+                            <h2>Fix it!</h2>
+<pre><code>
+  git clone gitlab_sa@git.thoughtworks.net:jacksingleton/injection-workshop.git
+
+  cd injection
+
+  mvn test
+
+</code></pre>
+                            <aside class="notes">
+                              <em>hands on option</em>
+                              <ul>
+                                <li>move around the room and help each pair implement the fix</li>
+                              </ul>
+                            </aside>
+                          </section>
+
+                          <section>
+                            <h2>Lets fix it</h2>
+                            <ul>
+                              <li>I will navigate and type</li>
+                              <li>You tell me what to change</li>
+                            </ul>
+                            <aside class="notes">
+                              <em>quicker option</em>
+                              <ul>
+                                <li>try to get everyone involved</li>
+                                <li>give hints along the way if the group is stumped</li>
+                              </ul>
+                            </aside>
+                          </section>
+
+                          <section>
+                            <h2>Learn more</h2>
+                            <ul>
+                              <li>sqlmap: <em>http://sqlmap.org/</em></li>
+                              <li>sql injection prevention cheat sheet: <em>https://www.owasp.org/index.php/SQL_Injection_Prevention_Cheat_Sheet</em></li>
+                              <li>owasp page: <em>https://www.owasp.org/index.php/Top_10_2013-A1-Injection</em></li>
+                            </ul>
+                          </section>
+
+                          <section>
+                            <h2>Feedback?</h2>
+                          </section>
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+                                width: "95%",
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
