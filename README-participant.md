@@ -11,3 +11,7 @@
 ## 4. Package & Test Manually
 * ```mvn clean package```
 * ```java -jar target/injection-1.0-SNAPSHOT-jar-with-dependencies.jar```
+
+## 5. Review slides (or become a facilitator!)
+* The slides are html/js
+* Open presentation/index.html in a web browser
