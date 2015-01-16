@@ -30,11 +30,6 @@ After this session, participants will...
   * How do I fix SQL injection vulnerabilities?
   * Which technique is good for what?
 
-## Package & Run
-* ```cd injection```
-* ```mvn clean package```
-* ```java -jar target/injection-1.0-SNAPSHOT-jar-with-dependencies.jar```
-
 ## Learn More
 * owasp page: https://www.owasp.org/index.php/Top_10_2013-A1-Injection
 * sql injection prevention cheat sheet: https://www.owasp.org/index.php/SQL_Injection_Prevention_Cheat_Sheet
