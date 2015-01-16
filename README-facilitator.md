@@ -1,8 +1,12 @@
 ## Presentation
 The slides are html/js built using reveal.js
+
 ```open presentation/index.html``` on mac
+
 For presentation mode and speaker notes: press ```s``` after opening. Will open in a seperate browser window
+
 Use right and left arrow keys to navigate forward and backwards
+
 ```esc``` will bring up a side overview
 
 ## Hands on sections
