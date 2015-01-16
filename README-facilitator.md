@@ -16,11 +16,14 @@ Hands on sections increase participation but add a lot of extra time. Tweak the 
 
 ## Edit $IP placeholder
 If you are doing slide #6, edit the '$IP' placeholder in ```presentation/index.html```
+
 This should be your local network ip address, check that you can communicate to it from another local computer
 
 ## Print / Export PDF
 Open ```presentation/index.html``` in Chrome with the ```print-pdf``` query parameter
+
 For example: ```file:///injection-workshop/presentation/index.html?print-pdf```
+
 Open the print dialog and either select a printer or export to PDF
 
 ## Black box hands on exercise (slide #6)
@@ -39,4 +42,5 @@ Open the print dialog and either select a printer or export to PDF
 
 ## Fixing the code (slides 9/10)
 The problem is sql substitution via concatination in ```UserRepo.java:findLastName```
+
 Prepared Statements should be used as in ```addNames```
