@@ -32,6 +32,7 @@ Open the print dialog and either select a printer or export to PDF
 * package application: ```mvn -DskipTests clean package```
 * install ```ncat``` and start application on your machine (you must have ```ncat```, not bsd or gnu ```nc```)
 * ```ncat -lktc 'java -jar target/injection-1.0-SNAPSHOT-jar-with-dependencies.jar' $IP 8888``` (substitute $IP for your local ip address)
+* now participants can interact with the application using ```telnet $IP 8888```
 
 ## Black box demo (slide #7)
 * package application: ```mvn -DskipTests clean package```
