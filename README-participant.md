@@ -1,13 +1,13 @@
-# Getting started as a participant
-
-## Generate IDEA Project
+## 1. Generate IDEA Project
 * ```mvn idea:idea```
 
-## Run tests
+## 2. Run tests
 * ```mvn test```
 
-## Fix the failing test
+## 3. Fix the failing test
+* The test fails for the simplest case of sql injection
+* A passing test does not imply correctness!
 
-## Package & Test manually
+## 4. Package & Test Manually
 * ```mvn clean package```
 * ```java -jar target/injection-1.0-SNAPSHOT-jar-with-dependencies.jar```
