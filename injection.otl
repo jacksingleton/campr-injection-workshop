@@ -11,12 +11,13 @@ injection
 	flow
 		split everyone into pairs (try to pair inexperienced with experienced people)
 		introduce injection
-			ask what injection vulnerabilities are
+			introduce injection
+				what are injection vulnerabilities?
+				what's the worst that can happen?
+
 				"Injection flaws occur when an application sends untrusted data to an interpreter."
 				SQL, LDAP, Xpath, or NoSQL queries, OS commands, XML parsers, SMTP Headers, program arguments
 				example: shellshock was a shell injection vulnerability
-			what's the worst that can happen?
-				ask participants
 				core terminology: "confidentiality", "integrity" and "availability"
 			little jonny tables
 		introduce cli java app that is vulnerable to sql injection
@@ -53,4 +54,5 @@ injection
 			sqlmap: http://sqlmap.org/
 			sql injection prevention cheat sheet: https://www.owasp.org/index.php/SQL_Injection_Prevention_Cheat_Sheet
 			owasp page: https://www.owasp.org/index.php/Top_10_2013-A1-Injection
+		questions
 		gather feedback
