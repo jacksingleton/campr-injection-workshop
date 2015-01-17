@@ -95,6 +95,14 @@
                           <section>
                             <h2>Vulnerable App</h2>
                             <pre class="bigcode"><code>telnet $IP 8888</code></pre>
+                            <br/>
+<pre class="bigcode" style="text-align: left"><code>// tip 1: sql used by app
+select * from users where first_name = 'name'</code></pre>
+                            <br/>
+<pre class="bigcode" style="text-align: left"><code>// tip 2: derby is wierd
+select * from x -- // crash
+select * from x -- anytext // valid
+</code></pre>
                             <aside class="notes">
                               <em>optional</em>
                               <ul>
@@ -109,9 +117,21 @@
                             <aside class="notes">
                               <ul>
                                 <li>java -jar target/injection-1.0-SNAPSHOT-jar-with-dependencies.jar</li>
-                                <li>' or 1=1 --comment'</li>
+                                <li>' or 1=1 --comment</li>
                                 <li>for i in $(seq 0 10); do echo "' or 1=1 offset $i rows --comment" | java -jar target/injection-1.0-SNAPSHOT-jar-with-dependencies.jar; done</li>
                               </ul>
+                            </aside>
+                          </section>
+
+                          <section>
+                            <h2>So what do we have to lose?</h2>
+                            <ul>
+                              <li>Confidentiality</li>
+                              <li>Integrity</li>
+                              <li>Availability</li>
+                            </ul>
+                            <aside class="notes">
+                              Core app sec terminology
                             </aside>
                           </section>
 
