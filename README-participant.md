@@ -1,3 +1,10 @@
+## 0. Prepare for the workshop
+
+The following commands should run without errors:
+
+* `mvn -DskipTests clean package`
+* `java -jar target/injection-1.0-SNAPSHOT-jar-with-dependencies.jar`
+
 ## 1. Generate IDEA Project
 * ```mvn idea:idea```
 
