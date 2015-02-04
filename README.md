@@ -1,5 +1,9 @@
 # Injection Workshop
 
+## [Getting started as a participant](README-participant.md)
+
+## [Getting started as a facilitator](README-facilitator.md)
+
 ## Value
 After this session, participants will...
 * Be able to identify SQL Injection vulnerabilities through blackbox testing
@@ -10,10 +14,6 @@ After this session, participants will...
 * Understand the different methodologies around fixing SQL Injection
   * How do I fix SQL injection vulnerabilities?
   * Which technique is good for what?
-
-## [Getting started as a participant](README-participant.md)
-
-## [Getting started as a facilitator](README-facilitator.md)
 
 ## Skill Level
 Beginner
