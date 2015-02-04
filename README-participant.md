@@ -2,6 +2,8 @@
 
 The following commands should run without errors:
 
+* `git clone https://github.com/jacksingleton/injection-workshop.git`
+* `cd injection-workshop`
 * `mvn -DskipTests clean package`
 * `java -jar target/injection-1.0-SNAPSHOT-jar-with-dependencies.jar`
 
