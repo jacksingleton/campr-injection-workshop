@@ -46,60 +46,59 @@
 
 		<div class="reveal">
 
-			<!-- Any section element inside of this container is displayed as a slide -->
-			<div class="slides">
+<!-- Any section element inside of this container is displayed as a slide -->
+<div class="slides">
 
-                          <section>
-                            <h1>Injection</h1>
-                            <h3>OWASP #1</h3>
-                            <aside class="notes">
-                              <ul>
-                                <li>If you are doing hands on exercises, pair up participants</li>
-                                <li>Ask who has experience with Java and SQL</li>
-                                <li>Try to pair inexperienced with experienced</li>
-                              </ul>
-                            </aside>
-                          </section>
+<section data-markdown data-separator-notes="^Note:">
+# Injection
 
-                          <section>
-                            <h2>Injection?</h2>
-                            <ul>
-                              <li>What are injection vulnerabilities?</li>
-                              <li>What’s the worst that can happen?</li>
-                            </ul>
-                          </section>
+### OWASP #1
 
-                          <section>
-                            <h2>Injection</h2>
-                            <ul>
-                              <li>"Injection flaws occur when an application sends untrusted data to an interpreter."</li>
-                              <li>SQL, LDAP, Xpath, or NoSQL queries, OS commands, XML parsers, SMTP Headers, program arguments</li>
-                            </ul>
-                          </section>
+Note:
 
-                          <section>
-                            <h2>Shellshock</h2>
-                            <aside class="notes">
-                              Shellshock is a code injection vulnerability
-                            </aside>
-                          </section>
+If you are doing hands on exercises, pair up participants
+Ask who has experience with Java and SQL
+Try to pair inexperienced with experienced
+</section>
 
-                          <section>
-                            <img width="100%" src="jonny-tables.png">
-                            <pre style="text-align: center; font-size: 1em"><code>Robert'); DROP TABLE Students;--</code></pre>
-                          </section>
+<section data-markdown data-separator-notes="^Note:">
+## Injection?
 
-                          <section>
-                            <pre class="bigcode"><code>$name = "Robert'); DROP TABLE Students;--"</code></pre>
-                            <pre class="bigcode"><code>SELECT * FROM Students WHERE name = '$name'</code></pre>
-                            <p>=></p>
-                            <pre class="medcode"><code>SELECT * FROM Students WHERE name = 'Robert'); DROP TABLE Students;--'</code></pre>
-                          </section>
+- What are injection vulnerabilities?
+- What’s the worst that can happen?
+</section>
 
-                          <section>
-                            <h2>Vulnerable App</h2>
-                            <pre class="bigcode"><code>telnet $IP 8888</code></pre>
-                            <br/>
+<section data-markdown data-separator-notes="^Note:">
+## Injection
+
+- "Injection flaws occur when an application sends untrusted data to an interpreter."
+- SQL, LDAP, Xpath, or NoSQL queries, OS commands, XML parsers, SMTP Headers, program arguments
+</section>
+
+<section data-markdown data-separator-notes="^Note:">
+## Shellshock
+
+Note:
+
+Shellshock is a code injection vulnerability
+</section>
+
+<section>
+<img width="100%" src="jonny-tables.png">
+<pre style="text-align: center; font-size: 1em"><code>Robert'); DROP TABLE Students;--</code></pre>
+</section>
+
+<section>
+  <pre class="bigcode"><code>$name = "Robert'); DROP TABLE Students;--"</code></pre>
+  <pre class="bigcode"><code>SELECT * FROM Students WHERE name = '$name'</code></pre>
+  <p>=></p>
+  <pre class="medcode"><code>SELECT * FROM Students WHERE name = 'Robert'); DROP TABLE Students;--'</code></pre>
+</section>
+
+<section>
+  <h2>Vulnerable App</h2>
+  <pre class="bigcode"><code>telnet $IP 8888</code></pre>
+  <br/>
 <pre class="bigcode" style="text-align: left"><code>// tip 1: sql used by app
 select * from users where first_name = 'name'</code></pre>
                             <br/>
@@ -107,98 +106,96 @@ select * from users where first_name = 'name'</code></pre>
 select * from x -- // crash
 select * from x -- anytext // valid
 </code></pre>
-                            <aside class="notes">
-                              <em>optional</em>
-                              <ul>
-                                <li>start application on your machine with ncat:</li>
-                                <li>ncat -lktc 'java -jar target/injection-1.0-SNAPSHOT-jar-with-dependencies.jar' $IP 8888</li>
-                              </ul>
-                            </aside>
-                          </section>
+  <aside class="notes">
+    <em>optional</em>
+    <ul>
+      <li>start application on your machine with ncat:</li>
+      <li>ncat -lktc 'java -jar target/injection-1.0-SNAPSHOT-jar-with-dependencies.jar' $IP 8888</li>
+    </ul>
+  </aside>
+</section>
 
-                          <section>
-                            <h2>demo</h2>
-                            <aside class="notes">
-                              <ul>
-                                <li>java -jar target/injection-1.0-SNAPSHOT-jar-with-dependencies.jar</li>
-                                <li>' or 1=1 --comment</li>
-                                <li>for i in $(seq 0 10); do echo "' or 1=1 offset $i rows --comment" | java -jar target/injection-1.0-SNAPSHOT-jar-with-dependencies.jar; done</li>
-                              </ul>
-                            </aside>
-                          </section>
+<section data-markdown data-separator-notes="^Note:">
+## demo
 
-                          <section>
-                            <h2>So what do we have to lose?</h2>
-                            <ul>
-                              <li>Confidentiality ✓</li>
-                              <li>Integrity ✓</li>
-                              <li>Availability ✓</li>
-                            </ul>
-                            <aside class="notes">
-                              Core app sec terminology
-                            </aside>
-                          </section>
+Note:
 
-                          <section>
-                            <h2>Secure Code Checklist</h2>
-                            <ul>
-                              <li>delegate sql substitution to the database</li>
-                              <li>encoding untrusted data</li>
-                              <li>validation (in as many layers as possible)</li>
-                              <li>whitelisting when possible</li>
-                              <li>fail gracefully</li>
-                            </ul>
-                            <aside class="notes">
-                              <p>untrusted data: "the most fundamental core idea of secure coding"</p>
-                            </aside>
-                          </section>
 
-                          <section>
-                            <h2>Fix it!</h2>
-<pre><code>
-  git clone https://github.com/jacksingleton/injection-workshop.git
+java -jar target/injection-1.0-SNAPSHOT-jar-with-dependencies.jar
+' or 1=1 --comment
+for i in $(seq 0 10); do echo "' or 1=1 offset $i rows --comment" | java -jar target/injection-1.0-SNAPSHOT-jar-with-dependencies.jar; done
+</section>
 
-  cd injection
+<section data-markdown data-separator-notes="^Note:">
+## So what do we have to lose?
 
-  mvn test
+- Confidentiality ✓
+- Integrity ✓
+- Availability ✓
+</section>
 
-</code></pre>
-                            <aside class="notes">
-                              <em>hands on option</em>
-                              <ul>
-                                <li>move around the room and help each pair implement the fix</li>
-                              </ul>
-                            </aside>
-                          </section>
+<section data-markdown data-separator-notes="^Note:">
+## Secure Code Checklist
 
-                          <section>
-                            <h2>Lets fix it</h2>
-                            <ul>
-                              <li>I will navigate and type</li>
-                              <li>You tell me what to change</li>
-                            </ul>
-                            <aside class="notes">
-                              <em>quicker option</em>
-                              <ul>
-                                <li>try to get everyone involved</li>
-                                <li>give hints along the way if the group is stumped</li>
-                              </ul>
-                            </aside>
-                          </section>
+- delegate sql substitution to the database
+- encoding untrusted data
+- validation (in as many layers as possible)
+- whitelisting when possible
+- fail gracefully
 
-                          <section>
-                            <h2>Learn more</h2>
-                            <ul>
-                              <li>sqlmap: <em>http://sqlmap.org/</em></li>
-                              <li>sql injection prevention cheat sheet: <em>https://www.owasp.org/index.php/SQL_Injection_Prevention_Cheat_Sheet</em></li>
-                              <li>owasp page: <em>https://www.owasp.org/index.php/Top_10_2013-A1-Injection</em></li>
-                            </ul>
-                          </section>
+Note:
 
-                          <section>
-                            <h2>Feedback?</h2>
-                          </section>
-			</div>
+untrusted data: "the most fundamental core idea of secure coding"
+</section>
+
+<section data-markdown data-separator-notes="^Note:">
+## Fix it!
+
+    git clone https://github.com/jacksingleton/injection-workshop.git
+
+    cd injection
+
+    mvn test
+
+Note:
+
+*hands on option*
+
+- move around the room and help each pair implement the fix</li>
+</section>
+
+<section data-markdown data-separator-notes="^Note:">
+## Lets fix it
+
+- I will navigate and type
+- You tell me what to change
+
+Note:
+
+*quicker option*
+
+
+- try to get everyone involved
+- give hints along the way if the group is stumped
+</section>
+
+<section data-markdown data-separator-notes="^Note:">
+## Learn more
+
+- sql injection prevention cheat sheet: *https://www.owasp.org/index.php/SQL_Injection_Prevention_Cheat_Sheet*
+- owasp page: *https://www.owasp.org/index.php/Top_10_2013-A1-Injection*
+- sqlmap: *http://sqlmap.org/*
+
+Note:
+
+TODO
+</section>
+
+<section data-markdown data-separator-notes="^Note:">
+## Feedback?
+</section>
+
+</div>
 		</div>
 
 		<script src="lib/js/head.min.js"></script>
