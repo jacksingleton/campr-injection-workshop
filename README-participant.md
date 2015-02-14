@@ -24,3 +24,9 @@ The following commands should run without errors:
 ## 5. Review slides (or become a facilitator!)
 * The slides are html/js
 * Open presentation/index.html in a web browser
+
+## Learn more
+
+- sql injection prevention cheat sheet: *https://www.owasp.org/index.php/SQL_Injection_Prevention_Cheat_Sheet*
+- owasp page: *https://www.owasp.org/index.php/Top_10_2013-A1-Injection*
+- sqlmap: *http://sqlmap.org/*
