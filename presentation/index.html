@@ -147,7 +147,20 @@ Note:
 
 Note:
 
-untrusted data: "the most fundamental core idea of secure coding"
+- using parameterized queries
+  - these make the database do the interpolation for you
+  - never concatinate strings to create queries!
+- encoding untrusted data
+  - untrusted data is the most fundamental idea of secure coding
+  - always know when data is potentially evil
+  - chose encoding over sanitization
+- validation (in as many layers as possible)
+  - can help make attacks more difficult
+  - but is not a solution in and of itself
+- whitelisting when possible
+  - accepting untrusted data is dangerous
+  - if there is no need to, don't!
+- fail gracefully
 </section>
 
 <section data-markdown data-separator-notes="^Note:">
