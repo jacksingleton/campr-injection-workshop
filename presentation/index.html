@@ -66,6 +66,9 @@ Try to pair inexperienced with experienced
 
 - What are injection vulnerabilities?
 - What’s the worst that can happen?
+
+Note:
+- Ask the audience
 </section>
 
 <section data-markdown data-separator-notes="^Note:">
@@ -73,6 +76,9 @@ Try to pair inexperienced with experienced
 
 - "Injection flaws occur when an application sends untrusted data to an interpreter."
 - SQL, LDAP, Xpath, or NoSQL queries, OS commands, XML parsers, SMTP Headers, program arguments
+
+Note:
+- This workshop focuses on SQL injection, but injection can occur with more than just databases
 </section>
 
 <section data-markdown data-separator-notes="^Note:">
@@ -80,13 +86,18 @@ Try to pair inexperienced with experienced
 
 Note:
 
-Shellshock is a code injection vulnerability
+Shellshock is a shell injection vulnerability
 </section>
 
-<section>
+<section data-markdown data-separator-notes="^Note:"><script type="text/template">
 <img width="100%" src="jonny-tables.png">
 <pre style="text-align: center; font-size: 1em"><code>Robert'); DROP TABLE Students;--</code></pre>
-</section>
+
+Note:
+- hahaha
+- Does everyone get it?
+- Ask someone to explain
+</script></section>
 
 <section>
   <pre class="bigcode"><code>$name = "Robert'); DROP TABLE Students;--"</code></pre>
@@ -134,6 +145,9 @@ Note:
 - Confidentiality ✓
 - Integrity ✓
 - Availability ✓
+
+Note:
+- Injection vulnerabilities threaten all three
 </section>
 
 <section data-markdown data-separator-notes="^Note:">
@@ -202,8 +216,8 @@ Note:
 - sqlmap: *http://sqlmap.org/*
 
 Note:
-
-TODO
+- owasp references are good to look at when you think you're at risk of an injection attack
+- sqlmap is a tool for automating sql injection, fun to play around with in your free time
 </section>
 
 <section data-markdown data-separator-notes="^Note:">
