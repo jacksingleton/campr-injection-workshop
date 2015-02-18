@@ -108,7 +108,10 @@ Note:
 
 <section>
   <h2>Vulnerable App</h2>
-  <pre class="bigcode"><code>telnet $IP 8888</code></pre>
+<pre class="bigcode" style="text-align: left"><code class="bash">$ telnet $IP 8888
+Hi what is your first name? Bob
+Hi, Bob Smith
+</code></pre>
   <br/>
 <pre class="bigcode" style="text-align: left"><code>// tip 1: sql used by app
 select * from users where first_name = 'name'
