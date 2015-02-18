@@ -5,6 +5,14 @@
 ## [Getting started as a facilitator](README-facilitator.md)
 
 ## Value
+
+> Injection flaws, such as SQL, OS, and LDAP injection occur when untrusted data
+> is sent to an interpreter as part of a command or query. The attacker’s hostile
+> data can trick the interpreter into executing unintended commands or accessing
+> data without proper authorization.
+>
+> \- [OWASP Top 10](https://www.owasp.org/index.php/Top_10_2013-Top_10)
+
 After this session, participants will...
 * Be able to identify SQL Injection vulnerabilities through blackbox testing
   * How do I know/prove that I'm vulnerable?
