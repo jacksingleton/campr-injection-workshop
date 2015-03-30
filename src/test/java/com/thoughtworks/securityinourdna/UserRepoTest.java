@@ -1,32 +1,31 @@
 package com.thoughtworks.securityinourdna;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.util.HashMap;
-import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 
 public class UserRepoTest {
 
     private final ConnectionFactory connectionFactory = new ConnectionFactory();
+    private Connection conn;
+
+    @Before
+    public void setup() throws Exception {
+        conn = connectionFactory.createInMemoryDatabase();
+    }
 
     @Test
     public void add_names_should_insert_names_into_the_database() throws Exception {
         // Given
-        Connection conn = connectionFactory.createInMemoryDatabase();
-
-        Map<String, String> firstLastNames = new HashMap<String, String>() {{
-            put("Alice", "Injector");
-            put("Bob", "Injector");
-        }};
+        UserRepo repo = new UserRepo(conn);
 
         // When
-        new UserRepo(conn).addNames(firstLastNames);
+        repo.addName("Alice", "Injector", "password");
+        repo.addName("Bob", "Injector", "password");
 
         // Then
         assertEquals(getUserCount(conn), 2);
@@ -34,26 +33,36 @@ public class UserRepoTest {
 
 
     @Test
-    public void find_last_name_should_return_null_when_first_name_does_not_exist() throws Exception {
+    public void login_should_work_for_existing_user() throws Exception {
         // Given
-        Connection conn = connectionFactory.createInMemoryDatabase();
+        UserRepo repo = new UserRepo(conn);
+        repo.addName("Alice", "Injector", "password");
 
         // When
-        String lastName = new UserRepo(conn).findLastName("i do not exist");
+        Boolean status = repo.login("Alice", "password");
 
         // Then
-        assertNull(lastName);
+        assertTrue(status);
+    }
+
+    @Test
+    public void login_should_deny_non_existing_user() throws Exception {
+        // Given
+        UserRepo repo = new UserRepo(conn);
+        repo.addName("Alice", "Injector", "password");
+
+        // When
+        Boolean status = repo.login("nobody", "password");
+
+        // Then
+        assertFalse(status);
     }
 
     @Test
     public void find_last_name_should_return_the_last_name_of_a_user_in_the_database() throws Exception {
         // Given
-        Connection conn = connectionFactory.createInMemoryDatabase();
         UserRepo userRepo = new UserRepo(conn);
-
-        userRepo.addNames(new HashMap<String, String>() {{
-            put("Alice", "Injector");
-        }});
+        userRepo.addName("Alice", "Injector", "password");
 
         // When
         String lastName = userRepo.findLastName("Alice");
@@ -65,12 +74,8 @@ public class UserRepoTest {
     @Test
     public void find_last_name_should_not_be_vulnerable_to_obvious_sql_injection() throws Exception {
         // Given
-        Connection conn = connectionFactory.createInMemoryDatabase();
         UserRepo userRepo = new UserRepo(conn);
-
-        userRepo.addNames(new HashMap<String, String>() {{
-            put("Alice", "Injector");
-        }});
+        userRepo.addName("Alice", "Injector", "password");
 
         // When
         String lastName = userRepo.findLastName("' or 1=1 --comment");

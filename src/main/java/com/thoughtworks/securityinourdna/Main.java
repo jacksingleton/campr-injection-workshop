@@ -1,6 +1,5 @@
 package com.thoughtworks.securityinourdna;
 
-import java.util.HashMap;
 import java.util.Scanner;
 
 public class Main {
@@ -8,16 +7,17 @@ public class Main {
     private static final UserRepo userRepo = initializeUserRepo();
 
     public static void main(final String[] args) throws Exception {
-        System.out.print("Hi what is your first name? ");
+        System.out.print("Please Login.\n");
 
-        final String firstName = new Scanner(System.in).nextLine();
+        System.out.print("Username: ");
+        final String username = new Scanner(System.in).nextLine();
+        System.out.print("Password: ");
+        final String password = new Scanner(System.in).nextLine();
 
-        final String lastName = userRepo.findLastName(firstName);
-
-        if (lastName != null) {
-            System.out.println("Hi, " + firstName + " " + lastName);
+        if (userRepo.login(username, password)) {
+            System.out.println("Welcome " + username + " " + userRepo.findLastName(username) + "!");
         } else {
-            System.out.println("Sorry, you're not in our database");
+            System.out.println("Sorry, please check your username and password combination.");
         }
     }
 
@@ -26,13 +26,12 @@ public class Main {
             final ConnectionFactory connectionFactory = new ConnectionFactory();
             final UserRepo userRepo = new UserRepo(connectionFactory.createInMemoryDatabase());
 
-            userRepo.addNames(new HashMap<String, String>() {{
-                put("Alice", "Brown");
-                put("Bob", "Smith");
-                put("Eve", "Johnson");
-                put("Mallory", "Jones");
-                put("Dan", "Williams");
-            }});
+            userRepo.addName("Alice", "Brown", "password");
+            userRepo.addName("Bob", "Smith", "password");
+            userRepo.addName("Eve", "Johnson", "password");
+            userRepo.addName("Mallory", "Jones", "password");
+            userRepo.addName("Dan", "Williams", "password");
+            userRepo.addName("admin", "Almighty", "password");
 
             return userRepo;
         } catch (Exception e) {

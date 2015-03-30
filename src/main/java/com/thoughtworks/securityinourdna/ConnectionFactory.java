@@ -7,7 +7,7 @@ import java.sql.SQLException;
 public class ConnectionFactory {
 
     private final String databaseDescriptor = "jdbc:derby:memory:" + "injection" + ";create=true";
-    private final String usersTableSql = "create table users (first_name varchar(80), last_name varchar(80))";
+    private final String usersTableSql = "create table users (first_name varchar(80), last_name varchar(80), password varchar(80))";
 
     public Connection createInMemoryDatabase() throws SQLException {
         dropDatabaseIfItAlreadyExists();
