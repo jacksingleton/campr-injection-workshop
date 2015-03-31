@@ -38,10 +38,3 @@ For hands on sections:
 ## Timeframe
 * without hands on at a good pace: 30 minutes
 * using hands on options: 60-90 minutes
-
-## Tasks
-1. Find a way to login as the administrator named “admin” without using their password.
-2. Enumerate all the user passwords in the database and identify whether the application uses salts or not.
-
-## Hint
-It will be helpful to [download](https://db.apache.org/derby/derby_downloads.html) Derby and use the ij tool to try different sql commands against a live database.

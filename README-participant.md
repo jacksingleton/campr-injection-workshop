@@ -7,6 +7,15 @@ The following commands should run without errors:
 * `mvn -DskipTests clean package`
 * `java -jar target/injection-1.0-SNAPSHOT-jar-with-dependencies.jar`
 
+## Exploit the Application
+
+* Find a way to login as the administrator named “admin” without using their password.
+* Enumerate all the user passwords in the database and identify whether the
+  application uses salts or not.
+* Hint: It will be helpful to
+  [download](https://db.apache.org/derby/derby_downloads.html) Derby and use
+  the ij tool to try different sql commands against a live database.
+
 ## Generate IDEA Project
 * ```mvn idea:idea```
 
@@ -27,6 +36,7 @@ The following commands should run without errors:
 
 ## Learn more
 
-- sql injection prevention cheat sheet: *https://www.owasp.org/index.php/SQL_Injection_Prevention_Cheat_Sheet*
+- sql injection prevention cheat sheet:
+  *https://www.owasp.org/index.php/SQL_Injection_Prevention_Cheat_Sheet*
 - owasp page: *https://www.owasp.org/index.php/Top_10_2013-A1-Injection*
 - sqlmap: *http://sqlmap.org/*
