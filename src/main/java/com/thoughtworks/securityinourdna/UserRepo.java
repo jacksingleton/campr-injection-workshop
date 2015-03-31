@@ -19,7 +19,7 @@ public class UserRepo {
         final ResultSet resultSet = connection.createStatement().executeQuery(query);
 
         if (resultSet.next()) {
-            return resultSet.getString("last_name");
+            return resultSet.getString(2);
         } else {
             return null;
         }
