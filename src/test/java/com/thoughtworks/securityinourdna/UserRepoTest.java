@@ -24,8 +24,8 @@ public class UserRepoTest {
         UserRepo repo = new UserRepo(conn);
 
         // When
-        repo.addName("Alice", "Injector", "password");
-        repo.addName("Bob", "Injector", "password");
+        repo.addName("Alice", "password");
+        repo.addName("Bob", "password");
 
         // Then
         assertEquals(getUserCount(conn), 2);
@@ -36,7 +36,7 @@ public class UserRepoTest {
     public void login_should_work_for_existing_user() throws Exception {
         // Given
         UserRepo repo = new UserRepo(conn);
-        repo.addName("Alice", "Injector", "password");
+        repo.addName("Alice", "password");
 
         // When
         Boolean status = repo.login("Alice", "password");
@@ -49,39 +49,13 @@ public class UserRepoTest {
     public void login_should_deny_non_existing_user() throws Exception {
         // Given
         UserRepo repo = new UserRepo(conn);
-        repo.addName("Alice", "Injector", "password");
+        repo.addName("Alice", "password");
 
         // When
         Boolean status = repo.login("nobody", "password");
 
         // Then
         assertFalse(status);
-    }
-
-    @Test
-    public void find_last_name_should_return_the_last_name_of_a_user_in_the_database() throws Exception {
-        // Given
-        UserRepo userRepo = new UserRepo(conn);
-        userRepo.addName("Alice", "Injector", "password");
-
-        // When
-        String lastName = userRepo.findLastName("Alice");
-
-        // Then
-        assertEquals(lastName, "Injector");
-    }
-
-    @Test
-    public void find_last_name_should_not_be_vulnerable_to_obvious_sql_injection() throws Exception {
-        // Given
-        UserRepo userRepo = new UserRepo(conn);
-        userRepo.addName("Alice", "Injector", "password");
-
-        // When
-        String lastName = userRepo.findLastName("' or 1=1 --comment");
-
-        // Then
-        assertNull(lastName);
     }
 
 

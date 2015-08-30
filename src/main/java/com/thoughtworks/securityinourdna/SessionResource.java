@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class SessionResource {
 
-    private UserRepo userRepo;
+    private final UserRepo userRepo;
 
     @Autowired
     public SessionResource(UserRepo userRepo) {
@@ -17,13 +17,13 @@ public class SessionResource {
     }
 
     @RequestMapping(value = "/session", method = RequestMethod.POST)
-    public String createSession(@RequestParam(value = "username") String username,
-                              @RequestParam(value = "password") String password)
-                              throws Exception {
-        if (userRepo.login(username, password)) {
-            return "Welcome " + username + " " + userRepo.findLastName(username) + "!";
+    public String createSession(@RequestParam(value = "vendor") String vendor,
+                                @RequestParam(value = "password") String password)
+            throws Exception {
+        if (userRepo.login(vendor, password)) {
+            return "Welcome " + vendor + "!";
         } else {
-            return "Sorry, please check your username and password combination.";
+            return "Sorry, please check your vendor and password combination.";
         }
     }
 }

@@ -2,11 +2,11 @@ $(function() {
     $('form').submit(function(e) {
         e.preventDefault();
 
-        var username = $('[name=username]');
+        var vendor = $('[name=vendor]');
         var password = $('[name=password]');
 
         var loginData = {
-            username : username.val(),
+            vendor: vendor.val(),
             password : password.val()
         };
 
@@ -14,7 +14,7 @@ $(function() {
             alert(result);
         });
 
-        username.val('');
+        vendor.val("");
         password.val('');
     });
 });

@@ -13,30 +13,16 @@ public class UserRepo {
         this.connection = connection;
     }
 
-    public String findLastName(final String username) throws Exception {
-        final String query = "select * from users where first_name = '" + username + "'";
-
-        final ResultSet resultSet = connection.createStatement().executeQuery(query);
-
-        if (resultSet.next()) {
-            return resultSet.getString(2);
-        } else {
-            return null;
-        }
-
-    }
-
-    public void addName(String firstname, String lastname, String password) throws Exception {
-        final String query = "insert into users values (?, ?, ?)";
+    public void addName(String firstname, String password) throws Exception {
+        final String query = "insert into users values (?, ?)";
         final PreparedStatement stmt = connection.prepareStatement(query);
         stmt.setString(1, firstname);
-        stmt.setString(2, lastname);
-        stmt.setString(3, password);
+        stmt.setString(2, password);
         stmt.execute();
     }
 
-    public boolean login(String username, String password) throws SQLException {
-        final String query = "select * from users where first_name = '" + username + "' and password = '" + password + "'";
+    public boolean login(String vendorName, String password) throws SQLException {
+        final String query = "select * from users where vendor_name = '" + vendorName + "' and password = '" + password + "'";
 
         final ResultSet resultSet = connection.createStatement().executeQuery(query);
 
