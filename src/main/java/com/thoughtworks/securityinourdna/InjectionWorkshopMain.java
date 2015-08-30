@@ -1,27 +1,20 @@
 package com.thoughtworks.securityinourdna;
 
-import java.util.Scanner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 
-public class Main {
+import java.sql.Connection;
 
-    private static final UserRepo userRepo = initializeUserRepo();
+@Configuration
+@EnableAutoConfiguration
+@ComponentScan
+public class InjectionWorkshopMain {
 
-    public static void main(final String[] args) throws Exception {
-        System.out.print("Please Login.\n");
-
-        System.out.print("Username: ");
-        final String username = new Scanner(System.in).nextLine();
-        System.out.print("Password: ");
-        final String password = new Scanner(System.in).nextLine();
-
-        if (userRepo.login(username, password)) {
-            System.out.println("Welcome " + username + " " + userRepo.findLastName(username) + "!");
-        } else {
-            System.out.println("Sorry, please check your username and password combination.");
-        }
-    }
-
-    private static UserRepo initializeUserRepo() {
+    @Bean
+    public UserRepo userRepo() {
         try {
             final ConnectionFactory connectionFactory = new ConnectionFactory();
             final UserRepo userRepo = new UserRepo(connectionFactory.createInMemoryDatabase());
@@ -37,5 +30,10 @@ public class Main {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static void main(String[] args) {
+        SpringApplication app = new SpringApplication(InjectionWorkshopMain.class);
+        app.run(args);
     }
 }

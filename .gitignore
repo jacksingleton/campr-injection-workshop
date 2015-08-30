@@ -5,3 +5,5 @@ derby.log
 target
 .idea
 .sync
+.gradle
+build
