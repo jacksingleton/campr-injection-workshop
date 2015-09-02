@@ -39,10 +39,10 @@ public class UserRepoTest {
         repo.addName("Alice", "password");
 
         // When
-        Boolean status = repo.login("Alice", "password");
+        Boolean loggedIn = repo.login("Alice", "password");
 
         // Then
-        assertTrue(status);
+        assertTrue(loggedIn);
     }
 
     @Test
@@ -52,12 +52,24 @@ public class UserRepoTest {
         repo.addName("Alice", "password");
 
         // When
-        Boolean status = repo.login("nobody", "password");
+        Boolean loggedIn = repo.login("nobody", "password");
 
         // Then
-        assertFalse(status);
+        assertFalse(loggedIn);
     }
 
+    @Test
+    public void login_should_not_be_vulnerable_to_obvious_sql_injection() throws Exception {
+        // Given
+        UserRepo userRepo = new UserRepo(conn);
+        userRepo.addName("Alice", "password");
+
+        // When
+        Boolean loggedIn = userRepo.login("Alice", "' or 1=1 --comment");
+
+        // Then
+        assertFalse(loggedIn);
+    }
 
     private int getUserCount(Connection conn) throws Exception {
         final String userCountQuery = "select count(*) as user_count from users";
