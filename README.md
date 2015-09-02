@@ -1,40 +1,20 @@
-# Injection Workshop
+# Campr Injection Workshop
 
-## [Getting started as a participant](README-participant.md)
+## Getting started
 
-## [Getting started as a facilitator](README-facilitator.md)
+Generate Intellij project files:
 
-## Value
+```bash
+./gradlew idea
+```
 
-> Injection flaws, such as SQL, OS, and LDAP injection occur when untrusted data
-> is sent to an interpreter as part of a command or query. The attacker’s hostile
-> data can trick the interpreter into executing unintended commands or accessing
-> data without proper authorization.
->
-> \- [OWASP Top 10](https://www.owasp.org/index.php/Top_10_2013-Top_10)
+Run the application
 
-After this session, participants will...
-* Be able to identify SQL Injection vulnerabilities through blackbox testing
-  * How do I know/prove that I'm vulnerable?
-  * How bad is a SQL Injection vulnerability?
-* Be able to identify injection vulnerabilities in Java through code review
-  * How do I identify it while coding?
-* Understand the different methodologies around fixing SQL Injection
-  * How do I fix SQL injection vulnerabilities?
-  * Which technique is good for what?
-
-## Skill Level
-Beginner
+```bash
+./gradlew bootRun
+```
 
 ## Requirements
-* Basic knowledge of SQL and relational databases
-* Basic knowledge of Java Programming
 
-For hands on sections:
-* JDK 1.6+
-* Maven 3
+* JDK 1.7+
 * A Java IDE
-
-## Timeframe
-* without hands on at a good pace: 30 minutes
-* using hands on options: 60-90 minutes
