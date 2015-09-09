@@ -10,11 +10,11 @@ $(function() {
             password : password.val()
         };
 
-        $.post("/session", loginData, function(result) {
+        $.post('/session', loginData, function(result) {
             alert(result);
         });
 
-        vendor.val("");
+        vendor.val('');
         password.val('');
     });
 });
