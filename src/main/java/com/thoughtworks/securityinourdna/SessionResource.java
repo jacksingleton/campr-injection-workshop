@@ -20,8 +20,10 @@ public class SessionResource {
     public String createSession(@RequestParam(value = "vendor") String vendor,
                                 @RequestParam(value = "password") String password)
             throws Exception {
-        if (userRepo.login(vendor, password)) {
-            return "Welcome " + vendor + "!";
+        final UserRepo.LoginResult loginResult = userRepo.login(vendor, password);
+
+        if (loginResult.success) {
+            return "Welcome " + loginResult.vendorName + "!";
         } else {
             return "Sorry, please check your vendor and password combination.";
         }

@@ -21,11 +21,34 @@ public class UserRepo {
         stmt.execute();
     }
 
-    public boolean login(String vendorName, String password) throws SQLException {
+    public LoginResult login(String vendorName, String password) throws SQLException {
         final String query = "select * from users where vendor_name = '" + vendorName + "' and password = '" + password + "'";
 
         final ResultSet resultSet = connection.createStatement().executeQuery(query);
 
-        return resultSet.next();
+        if (resultSet.next()) {
+            return LoginResult.success(resultSet.getString(1));
+        } else {
+            return LoginResult.failed();
+        }
+    }
+
+    public static class LoginResult {
+
+        public final Boolean success;
+        public final String vendorName;
+
+        private LoginResult(Boolean success, String vendorName) {
+            this.success = success;
+            this.vendorName = vendorName;
+        }
+
+        public static LoginResult success(String vendorName) {
+            return new LoginResult(true, vendorName);
+        }
+
+        public static LoginResult failed() {
+            return new LoginResult(false, null);
+        }
     }
 }

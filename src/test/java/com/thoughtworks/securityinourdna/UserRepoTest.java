@@ -39,10 +39,23 @@ public class UserRepoTest {
         repo.addName("Alice", "password");
 
         // When
-        Boolean loggedIn = repo.login("Alice", "password");
+        Boolean loggedIn = repo.login("Alice", "password").success;
 
         // Then
         assertTrue(loggedIn);
+    }
+
+    @Test
+    public void login_should_return_vendor_name_for_existing_user() throws Exception {
+        // Given
+        UserRepo repo = new UserRepo(conn);
+        repo.addName("Alice", "password");
+
+        // When
+        String vendorName = repo.login("Alice", "password").vendorName;
+
+        // Then
+        assertNotNull(vendorName);
     }
 
     @Test
@@ -52,7 +65,7 @@ public class UserRepoTest {
         repo.addName("Alice", "password");
 
         // When
-        Boolean loggedIn = repo.login("nobody", "password");
+        Boolean loggedIn = repo.login("nobody", "password").success;
 
         // Then
         assertFalse(loggedIn);
@@ -65,7 +78,7 @@ public class UserRepoTest {
         userRepo.addName("Alice", "password");
 
         // When
-        Boolean loggedIn = userRepo.login("Alice", "' or 1=1 --comment");
+        Boolean loggedIn = userRepo.login("Alice", "' or 1=1 --comment").success;
 
         // Then
         assertFalse(loggedIn);
