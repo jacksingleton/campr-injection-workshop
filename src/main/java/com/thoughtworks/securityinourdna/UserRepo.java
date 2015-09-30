@@ -13,10 +13,10 @@ public class UserRepo {
         this.connection = connection;
     }
 
-    public void addName(String firstname, String password) throws Exception {
+    public void addName(String vendorName, String password) throws Exception {
         final String query = "insert into users values (?, ?)";
         final PreparedStatement stmt = connection.prepareStatement(query);
-        stmt.setString(1, firstname);
+        stmt.setString(1, vendorName);
         stmt.setString(2, password);
         stmt.execute();
     }
