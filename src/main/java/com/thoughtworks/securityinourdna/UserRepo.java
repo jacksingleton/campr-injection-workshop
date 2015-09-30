@@ -22,9 +22,12 @@ public class UserRepo {
     }
 
     public LoginResult login(String vendorName, String password) throws SQLException {
-        final String query = "select * from users where vendor_name = '" + vendorName + "' and password = '" + password + "'";
+        final String query = "select * from users where vendor_name = ? and password = ?";
+        final PreparedStatement stmt = connection.prepareStatement(query);
+        stmt.setString(1, vendorName);
+        stmt.setString(2, password);
 
-        final ResultSet resultSet = connection.createStatement().executeQuery(query);
+        final ResultSet resultSet = stmt.executeQuery();
 
         if (resultSet.next()) {
             return LoginResult.success(resultSet.getString(1));
