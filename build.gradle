@@ -12,7 +12,7 @@ buildscript {
     ]
 
     repositories {
-      maven {url 'https://maven-central.storage.googleapis.com'}
+        mavenCentral()
     }
 
     dependencies {
@@ -21,7 +21,7 @@ buildscript {
 }
 
 repositories {
-  maven {url 'https://maven-central.storage.googleapis.com'}
+    mavenCentral()
 }
 
 dependencies {
