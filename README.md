@@ -3,7 +3,7 @@
 ## Getting started
 
 Generate Intellij project files:
-
+Note: Please do this before opening the project in Intellij.
 ```bash
 ./gradlew idea
 ```
