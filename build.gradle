@@ -31,7 +31,7 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-jetty:${versions.springBootVersion}")
     compile("org.springframework.boot:spring-boot-starter-actuator:${versions.springBootVersion}")
 
-    compile "org.apache.derby:derby:10.14.2.0"
+    compile 'com.h2database:h2:1.4.197'
 
     testCompile "junit:junit:4.12"
 }
