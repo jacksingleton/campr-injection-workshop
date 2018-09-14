@@ -1,5 +1,6 @@
 package com.thoughtworks.securityinourdna;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -16,6 +17,11 @@ public class UserRepoTest {
     @Before
     public void setup() throws Exception {
         conn = connectionFactory.createInMemoryDatabase();
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        conn.close();
     }
 
     @Test
