@@ -1,0 +1,10 @@
+version: "3"
+services:
+  web:
+    container_name: campr-injection-workshop
+    image: openjdk:8-jdk-slim
+    command: bash -c "cd /app && ./gradlew -g /app/.gradle bootRun -x test"
+    volumes:
+      - .:/app/
+    ports:
+      - "8080:8080"
