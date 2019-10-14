@@ -1,34 +1,5 @@
 # **Campr Injection Workshop**
 
-## **Running in Local Machine**
-
----
-
-## Requirements
-
-- JDK 1.7 or 1.8
-- A Java IDE
-
-## Steps
-
-- [Optional] Generate Intellij project files:
-
-  ```bash
-  ./gradlew idea
-  ```
-
-- Run the application
-
-  ```bash
-  ./gradlew bootRun
-  ```
-
-- Run the tests
-
-  ```bash
-  ./gradlew test
-  ```
-
 ## **Running in Docker**
 
 ---
@@ -39,14 +10,14 @@
   ```bash
   brew cask install docker
   ```
-- A Java IDE
+- A Java IDE _e.g, IntelliJ IDEA_
 
 ## Steps to complete the workshop
 
 1. Run the application
 
    ```bash
-   docker-compose up --force-recreate
+   docker-compose rm -f && docker-compose up
    ```
 
 2. Open the application & find the bug http://localhost:8080/
@@ -61,6 +32,12 @@
 
 5. Once the test passes, Restart the application
    ```bash
-   docker-compose up --force-recreate
+   docker-compose rm -f && docker-compose up
    ```
 6. Open the application & verify the bug is fixed http://localhost:8080/
+
+7. That's it. Stop the services and do clean up
+
+   ```bash
+   docker-compose rm -f
+   ```

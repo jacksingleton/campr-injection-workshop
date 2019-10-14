@@ -8,3 +8,13 @@ services:
       - .:/app/
     ports:
       - "8080:8080"
+    depends_on:
+      - db
+  db:
+    image: "postgres"
+    environment:
+      - POSTGRES_USER=test
+      - POSTGRES_PASSWORD=test
+      - POSTGRES_DB=injection
+    ports:
+      - "54320:5432"

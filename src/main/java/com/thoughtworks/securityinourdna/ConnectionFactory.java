@@ -6,13 +6,13 @@ import java.sql.SQLException;
 
 public class ConnectionFactory {
 
-    private final String databaseDescriptor = "jdbc:derby:memory:" + "injection" + ";create=true";
+    private final String databaseDescriptor = "jdbc:postgresql://db:5432/" + "injection";
     private final String usersTableSql = "create table users (vendor_name varchar(80), password varchar(80))";
 
     public Connection createInMemoryDatabase() throws SQLException {
-        dropDatabaseIfItAlreadyExists();
+        // dropDatabaseIfItAlreadyExists();
 
-        final Connection conn = DriverManager.getConnection(databaseDescriptor);
+        final Connection conn = DriverManager.getConnection(databaseDescriptor, "test","test");
         conn.createStatement().execute(usersTableSql);
 
         return conn;
@@ -20,7 +20,7 @@ public class ConnectionFactory {
 
     private void dropDatabaseIfItAlreadyExists() {
         try {
-            DriverManager.getConnection("jdbc:derby:memory:" + "injection" + ";drop=true");
+            DriverManager.getConnection("jdbc:postgresql://db:5432/" + "injection" + ";drop=true", "test","test");
         } catch (SQLException e) {
             // Database doesn't exist in memory yet, no worries
         }
