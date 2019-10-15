@@ -3,6 +3,7 @@ package com.thoughtworks.securityinourdna;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.*;
 
 public class ConnectionFactory {
 
@@ -10,10 +11,17 @@ public class ConnectionFactory {
     private final String usersTableSql = "create table users (vendor_name varchar(80), password varchar(80))";
 
     public Connection createInMemoryDatabase() throws SQLException {
-
         final Connection conn = DriverManager.getConnection(databaseDescriptor, "root","");
-        conn.createStatement().execute(usersTableSql);
+        boolean tableFound = false;
+        DatabaseMetaData meta = conn.getMetaData();
+        ResultSet res = meta.getTables(null, null, "users", new String[] {"TABLE"});
+
+        if (res == null){
+            conn.createStatement().execute(usersTableSql);   
+        }       
+         
 
         return conn;
     }
+
 }

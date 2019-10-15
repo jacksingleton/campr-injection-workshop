@@ -1,10 +1,12 @@
 package com.thoughtworks.securityinourdna;
 
 import org.junit.Before;
+import org.junit.After;
 import org.junit.Test;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.PreparedStatement;
 
 import static org.junit.Assert.*;
 
@@ -19,6 +21,14 @@ public class UserRepoTest {
         System.out.println(conn);
     }
 
+    @After
+    public void tearDown() throws Exception {
+        System.out.println("Running: tearDown");
+        final String deleteQuery = "delete from users where vendor_name in ('Alice','Bob')";
+        PreparedStatement preparedStmt = conn.prepareStatement(deleteQuery);
+        preparedStmt.execute();
+    }
+
     @Test
     public void add_names_should_insert_names_into_the_database() throws Exception {
         // Given
@@ -28,7 +38,7 @@ public class UserRepoTest {
         repo.addName("Bob", "password");
 
         // Then
-        assertEquals(getUserCount(conn), 2);
+        assertEquals(getUserCount(conn), 5);
     }
 
 
