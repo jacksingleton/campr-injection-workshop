@@ -16,13 +16,13 @@ public class UserRepoTest {
     @Before
     public void setup() throws Exception {
         conn = connectionFactory.createInMemoryDatabase();
+        System.out.println(conn);
     }
 
     @Test
     public void add_names_should_insert_names_into_the_database() throws Exception {
         // Given
         UserRepo repo = new UserRepo(conn);
-
         // When
         repo.addName("Alice", "password");
         repo.addName("Bob", "password");

@@ -11,10 +11,14 @@ services:
     depends_on:
       - db
   db:
-    image: "postgres"
-    environment:
-      - POSTGRES_USER=test
-      - POSTGRES_PASSWORD=test
-      - POSTGRES_DB=injection
+    container_name: db_server
+    hostname: db_server
+    image: mysql
     ports:
-      - "54320:5432"
+      - 3306:3306
+    expose:
+      - 3306
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+      MYSQL_DATABASE: 'injection'
+
