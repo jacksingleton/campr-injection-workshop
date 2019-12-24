@@ -7,3 +7,4 @@ target
 .sync
 .gradle
 build
+out
